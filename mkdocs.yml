@@ -1,0 +1,55 @@
+site_name: Where Is Vishal
+site_url: https://whereisvishal.com/
+site_author: Vishal | وشال
+theme:
+  name: material
+  font:
+    text: Albert Sans
+  icon:
+    logo: material/library
+  favicon: images/icons8-poem-stickers-32.png
+  palette:
+    - scheme: default
+      primary: green
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: green
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - toc.follow
+    # - navigation.tabs
+    - search.suggest
+    - search.share
+    - search.highlight
+    - header.autohide
+plugins:
+  - search
+markdown_extensions:
+  - toc:
+      permalink: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - tables
+  - admonition
+  - footnotes
+  - pymdownx.details
+  - pymdownx.betterem
+  - pymdownx.magiclink
+  - pymdownx.escapeall:
+      nbsp: true
+      hardbreak: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/details.css
