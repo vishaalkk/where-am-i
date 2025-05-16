@@ -3,7 +3,6 @@ site_url: https://whereisvishal.com/
 site_author: Vishal | وشال
 theme:
   name: material
-  # custom_dir: docs/overrides
   font:
     text: Albert Sans
   icon:
@@ -58,4 +57,4 @@ extra_css:
 extra_javascript:
   - https://unpkg.com/leaflet@1.9.4/dist/leaflet.js
   - assets/fetch-location.js
-  - assets/auth.js
+  # - assets/auth.js
