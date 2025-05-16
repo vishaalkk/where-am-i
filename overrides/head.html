@@ -1,0 +1,16 @@
+<script>
+    // Fake blocking auth
+    (function () {
+      const user = "admin";
+      const pass = "secret";
+    
+      const u = prompt("Username:");
+      const p = prompt("Password:");
+    
+      if (u !== user || p !== pass) {
+        document.write("<h1>401 Unauthorized</h1>");
+        throw new Error("Unauthorized");
+      }
+    })();
+    </script>
+    
