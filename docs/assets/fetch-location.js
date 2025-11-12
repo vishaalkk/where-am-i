@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // ← these lat/lon are just examples
-    const lat = 40.7128;
-    const lon = -74.0060;
+    const lat = 51.509865;
+    const lon = -0.118092;
   
     // This must match your <div id="map">
     const map = L.map('map').setView([lat, lon], 13);
