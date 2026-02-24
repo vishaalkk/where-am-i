@@ -112,7 +112,7 @@ h1 {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 680px; /* Wider for Pause button */
+  width: 720px; /* Increased for Date */
   max-width: 95vw;
   background: rgba(0, 0, 0, 0.9);
   border: 2px solid #00ff00;
@@ -126,7 +126,7 @@ h1 {
   /* GRID LAYOUT FOR STABILITY */
   display: grid;
   /* Fixed pixel widths */
-  grid-template-columns: 220px 140px 140px 180px; 
+  grid-template-columns: 200px 180px 140px 180px; 
   gap: 0;
   align-items: center;
 }

@@ -1,729 +1,729 @@
 [
   {
-    "location": "Karachi (KHI)",
+    "location": "Karachi",
     "coordinates": [67.1608, 24.9065],
-    "date": "July 16, 2016",
+    "date": "Jul 16, 2016",
     "airline": "Emirates / JetBlue",
     "type": "departure"
   },
   {
-    "location": "Rochester (ROC)",
+    "location": "Rochester",
     "coordinates": [-77.6724, 43.1189],
-    "date": "July 16, 2016",
+    "date": "Jul 16, 2016",
     "airline": "Emirates / JetBlue",
     "type": "arrival"
   },
   {
-    "location": "San Francisco (SFO)",
+    "location": "San Francisco",
     "coordinates": [-122.3790, 37.6213],
-    "date": "September 2, 2018",
+    "date": "Sep 2, 2018",
     "airline": "United Airlines",
     "type": "departure"
   },
   {
-    "location": "Las Vegas (LAS)",
+    "location": "Las Vegas",
     "coordinates": [-115.1537, 36.0840],
-    "date": "September 2, 2018",
+    "date": "Sep 2, 2018",
     "airline": "United Airlines",
     "type": "arrival"
   },
   {
-    "location": "Los Angeles (LAX)",
+    "location": "Los Angeles",
     "coordinates": [-118.4085, 33.9416],
-    "date": "September 7, 2018",
+    "date": "Sep 7, 2018",
     "airline": "Alaska Airlines",
     "type": "departure"
   },
   {
-    "location": "San Francisco (SFO)",
+    "location": "San Francisco",
     "coordinates": [-122.3790, 37.6213],
-    "date": "September 7, 2018",
+    "date": "Sep 7, 2018",
     "airline": "Alaska Airlines",
     "type": "arrival"
   },
   {
-    "location": "San Francisco (SFO)",
+    "location": "San Francisco",
     "coordinates": [-122.3790, 37.6213],
-    "date": "November 21, 2018",
+    "date": "Nov 21, 2018",
     "airline": "Alaska Airlines",
     "type": "departure"
   },
   {
-    "location": "Seattle (SEA)",
+    "location": "Seattle",
     "coordinates": [-122.3088, 47.4502],
-    "date": "November 21, 2018",
+    "date": "Nov 21, 2018",
     "airline": "Alaska Airlines",
     "type": "arrival"
   },
   {
-    "location": "Seattle (SEA)",
+    "location": "Seattle",
     "coordinates": [-122.3088, 47.4502],
-    "date": "November 26, 2018",
+    "date": "Nov 26, 2018",
     "airline": "Alaska Airlines",
     "type": "departure"
   },
   {
-    "location": "Oakland (OAK)",
+    "location": "Oakland",
     "coordinates": [-122.2207, 37.7213],
-    "date": "November 26, 2018",
+    "date": "Nov 26, 2018",
     "airline": "Alaska Airlines",
     "type": "arrival"
   },
   {
-    "location": "San Francisco (SFO)",
+    "location": "San Francisco",
     "coordinates": [-122.3790, 37.6213],
-    "date": "January 16, 2019",
+    "date": "Jan 16, 2019",
     "airline": "Alaska Airlines",
     "type": "departure"
   },
   {
-    "location": "Chicago (ORD)",
+    "location": "Chicago",
     "coordinates": [-87.9073, 41.9742],
-    "date": "January 16, 2019",
+    "date": "Jan 16, 2019",
     "airline": "Alaska Airlines",
     "type": "arrival"
   },
   {
-    "location": "Chicago (ORD)",
+    "location": "Chicago",
     "coordinates": [-87.9073, 41.9742],
-    "date": "January 22, 2019",
+    "date": "Jan 22, 2019",
     "airline": "Alaska Airlines",
     "type": "departure"
   },
   {
-    "location": "San Francisco (SFO)",
+    "location": "San Francisco",
     "coordinates": [-122.3790, 37.6213],
-    "date": "January 22, 2019",
+    "date": "Jan 22, 2019",
     "airline": "Alaska Airlines",
     "type": "arrival"
   },
   {
-    "location": "San Francisco (SFO)",
+    "location": "San Francisco",
     "coordinates": [-122.3790, 37.6213],
-    "date": "October 18, 2019",
+    "date": "Oct 18, 2019",
     "airline": "Alaska Airlines",
     "type": "departure"
   },
   {
-    "location": "Newark (EWR)",
+    "location": "Newark",
     "coordinates": [-74.1745, 40.6895],
-    "date": "October 18, 2019",
+    "date": "Oct 18, 2019",
     "airline": "Alaska Airlines",
     "type": "arrival"
   },
   {
-    "location": "Seattle (SEA)",
+    "location": "Seattle",
     "coordinates": [-122.3088, 47.4502],
-    "date": "September 7, 2021",
+    "date": "Sep 7, 2021",
     "airline": "Alaska Airlines",
     "type": "departure"
   },
   {
-    "location": "San Francisco (SFO)",
+    "location": "San Francisco",
     "coordinates": [-122.3790, 37.6213],
-    "date": "September 7, 2021",
+    "date": "Sep 7, 2021",
     "airline": "Alaska Airlines",
     "type": "arrival"
   },
   {
-    "location": "San Francisco (SFO)",
+    "location": "San Francisco",
     "coordinates": [-122.3790, 37.6213],
-    "date": "September 11, 2021",
+    "date": "Sep 11, 2021",
     "airline": "Alaska Airlines",
     "type": "departure"
   },
   {
-    "location": "New York (JFK)",
+    "location": "New York",
     "coordinates": [-73.7781, 40.6413],
-    "date": "September 11, 2021",
+    "date": "Sep 11, 2021",
     "airline": "Alaska Airlines",
     "type": "arrival"
   },
   {
-    "location": "Toronto (YYZ)",
+    "location": "Toronto",
     "coordinates": [-79.6248, 43.6777],
-    "date": "December 4, 2021",
+    "date": "Dec 4, 2021",
     "airline": "Emirates",
     "type": "departure"
   },
   {
-    "location": "Karachi (KHI)",
+    "location": "Karachi",
     "coordinates": [67.1608, 24.9065],
-    "date": "December 4, 2021",
+    "date": "Dec 4, 2021",
     "airline": "Emirates",
     "type": "arrival"
   },
   {
-    "location": "Karachi (KHI)",
+    "location": "Karachi",
     "coordinates": [67.1608, 24.9065],
-    "date": "December 31, 2021",
+    "date": "Dec 31, 2021",
     "airline": "Emirates",
     "type": "departure"
   },
   {
-    "location": "New York (JFK)",
+    "location": "New York",
     "coordinates": [-73.7781, 40.6413],
-    "date": "December 31, 2021",
+    "date": "Dec 31, 2021",
     "airline": "Emirates",
     "type": "arrival"
   },
   {
-    "location": "Karachi (KHI)",
+    "location": "Karachi",
     "coordinates": [67.1608, 24.9065],
-    "date": "January 7, 2022",
+    "date": "Jan 7, 2022",
     "airline": "Emirates",
     "type": "departure"
   },
   {
-    "location": "New York (JFK)",
+    "location": "New York",
     "coordinates": [-73.7781, 40.6413],
-    "date": "January 7, 2022",
+    "date": "Jan 7, 2022",
     "airline": "Emirates",
     "type": "arrival"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "April 6, 2022",
+    "date": "Apr 6, 2022",
     "airline": "American Airlines",
     "type": "departure"
   },
   {
-    "location": "San Antonio (SAT)",
+    "location": "San Antonio",
     "coordinates": [-98.4683, 29.5312],
-    "date": "April 6, 2022",
+    "date": "Apr 6, 2022",
     "airline": "American Airlines",
     "type": "arrival"
   },
   {
-    "location": "Austin (AUS)",
+    "location": "Austin",
     "coordinates": [-97.6664, 30.1975],
-    "date": "April 22, 2022",
+    "date": "Apr 22, 2022",
     "airline": "Aeromexico",
     "type": "departure"
   },
   {
-    "location": "Mexico City (MEX)",
+    "location": "Mexico City",
     "coordinates": [-99.0719, 19.4361],
-    "date": "April 22, 2022",
+    "date": "Apr 22, 2022",
     "airline": "Aeromexico",
     "type": "arrival"
   },
   {
-    "location": "Mexico City (MEX)",
+    "location": "Mexico City",
     "coordinates": [-99.0719, 19.4361],
     "date": "May 8, 2022",
     "airline": "American Airlines",
     "type": "departure"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
     "date": "May 8, 2022",
     "airline": "American Airlines",
     "type": "arrival"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "June 30, 2022",
+    "date": "Jun 30, 2022",
     "airline": "United Airlines",
     "type": "departure"
   },
   {
-    "location": "Denver (DEN)",
+    "location": "Denver",
     "coordinates": [-104.6737, 39.8561],
-    "date": "June 30, 2022",
+    "date": "Jun 30, 2022",
     "airline": "United Airlines",
     "type": "arrival"
   },
   {
-    "location": "Denver (DEN)",
+    "location": "Denver",
     "coordinates": [-104.6737, 39.8561],
-    "date": "July 12, 2022",
+    "date": "Jul 12, 2022",
     "airline": "Alaska Airlines",
     "type": "departure"
   },
   {
-    "location": "Seattle (SEA)",
+    "location": "Seattle",
     "coordinates": [-122.3088, 47.4502],
-    "date": "July 12, 2022",
+    "date": "Jul 12, 2022",
     "airline": "Alaska Airlines",
     "type": "arrival"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "July 29, 2022",
+    "date": "Jul 29, 2022",
     "airline": "Air Canada",
     "type": "departure"
   },
   {
-    "location": "Toronto (YYZ)",
+    "location": "Toronto",
     "coordinates": [-79.6248, 43.6777],
-    "date": "July 29, 2022",
+    "date": "Jul 29, 2022",
     "airline": "Air Canada",
     "type": "arrival"
   },
   {
-    "location": "Toronto (YYZ)",
+    "location": "Toronto",
     "coordinates": [-79.6248, 43.6777],
-    "date": "August 28, 2022",
+    "date": "Aug 28, 2022",
     "airline": "American Airlines",
     "type": "departure"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "August 28, 2022",
+    "date": "Aug 28, 2022",
     "airline": "American Airlines",
     "type": "arrival"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "October 15, 2022",
+    "date": "Oct 15, 2022",
     "airline": "American Airlines",
     "type": "departure"
   },
   {
-    "location": "Toronto (YYZ)",
+    "location": "Toronto",
     "coordinates": [-79.6248, 43.6777],
-    "date": "October 15, 2022",
+    "date": "Oct 15, 2022",
     "airline": "American Airlines",
     "type": "arrival"
   },
   {
-    "location": "Toronto (YYZ)",
+    "location": "Toronto",
     "coordinates": [-79.6248, 43.6777],
-    "date": "December 16, 2022",
+    "date": "Dec 16, 2022",
     "airline": "Emirates",
     "type": "departure"
   },
   {
-    "location": "Karachi (KHI)",
+    "location": "Karachi",
     "coordinates": [67.1608, 24.9065],
-    "date": "December 16, 2022",
+    "date": "Dec 16, 2022",
     "airline": "Emirates",
     "type": "arrival"
   },
   {
-    "location": "Karachi (KHI)",
+    "location": "Karachi",
     "coordinates": [67.1608, 24.9065],
-    "date": "January 14, 2023",
+    "date": "Jan 14, 2023",
     "airline": "Emirates",
     "type": "departure"
   },
   {
-    "location": "New York (JFK)",
+    "location": "New York",
     "coordinates": [-73.7781, 40.6413],
-    "date": "January 14, 2023",
+    "date": "Jan 14, 2023",
     "airline": "Emirates",
     "type": "arrival"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "March 16, 2023",
+    "date": "Mar 16, 2023",
     "airline": "American Airlines",
     "type": "departure"
   },
   {
-    "location": "Dallas/Fort Worth (DFW)",
+    "location": "Dallas/Fort Worth",
     "coordinates": [-97.0403, 32.8998],
-    "date": "March 16, 2023",
+    "date": "Mar 16, 2023",
     "airline": "American Airlines",
     "type": "arrival"
   },
   {
-    "location": "Mexico City (MEX)",
+    "location": "Mexico City",
     "coordinates": [-99.0719, 19.4361],
-    "date": "April 2, 2023",
+    "date": "Apr 2, 2023",
     "airline": "American Airlines",
     "type": "departure"
   },
   {
-    "location": "New York (JFK)",
+    "location": "New York",
     "coordinates": [-73.7781, 40.6413],
-    "date": "April 2, 2023",
+    "date": "Apr 2, 2023",
     "airline": "American Airlines",
     "type": "arrival"
   },
   {
-    "location": "Toronto (YYZ)",
+    "location": "Toronto",
     "coordinates": [-79.6248, 43.6777],
     "date": "May 28, 2023",
     "airline": "Delta Air Lines",
     "type": "departure"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
     "date": "May 28, 2023",
     "airline": "Delta Air Lines",
     "type": "arrival"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "July 26, 2023",
+    "date": "Jul 26, 2023",
     "airline": "American Airlines",
     "type": "departure"
   },
   {
-    "location": "Toronto (YYZ)",
+    "location": "Toronto",
     "coordinates": [-79.6248, 43.6777],
-    "date": "July 26, 2023",
+    "date": "Jul 26, 2023",
     "airline": "American Airlines",
     "type": "arrival"
   },
   {
-    "location": "Toronto (YYZ)",
+    "location": "Toronto",
     "coordinates": [-79.6248, 43.6777],
-    "date": "September 15, 2023",
+    "date": "Sep 15, 2023",
     "airline": "Air Canada",
     "type": "departure"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "September 15, 2023",
+    "date": "Sep 15, 2023",
     "airline": "Air Canada",
     "type": "arrival"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "November 6, 2023",
+    "date": "Nov 6, 2023",
     "airline": "Delta Air Lines",
     "type": "departure"
   },
   {
-    "location": "Milwaukee (MKE)",
+    "location": "Milwaukee",
     "coordinates": [-87.8966, 42.9475],
-    "date": "November 6, 2023",
+    "date": "Nov 6, 2023",
     "airline": "Delta Air Lines",
     "type": "arrival"
   },
   {
-    "location": "Milwaukee (MKE)",
+    "location": "Milwaukee",
     "coordinates": [-87.8966, 42.9475],
-    "date": "November 13, 2023",
+    "date": "Nov 13, 2023",
     "airline": "Delta Air Lines",
     "type": "departure"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "November 13, 2023",
+    "date": "Nov 13, 2023",
     "airline": "Delta Air Lines",
     "type": "arrival"
   },
   {
-    "location": "Karachi (KHI)",
+    "location": "Karachi",
     "coordinates": [67.1608, 24.9065],
-    "date": "January 20, 2024",
+    "date": "Jan 20, 2024",
     "airline": "Emirates",
     "type": "departure"
   },
   {
-    "location": "Toronto (YYZ)",
+    "location": "Toronto",
     "coordinates": [-79.6248, 43.6777],
-    "date": "January 20, 2024",
+    "date": "Jan 20, 2024",
     "airline": "Emirates",
     "type": "arrival"
   },
   {
-    "location": "Toronto (YYZ)",
+    "location": "Toronto",
     "coordinates": [-79.6248, 43.6777],
-    "date": "February 28, 2024",
+    "date": "Feb 28, 2024",
     "airline": "Delta Air Lines",
     "type": "departure"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "February 28, 2024",
+    "date": "Feb 28, 2024",
     "airline": "Delta Air Lines",
     "type": "arrival"
   },
   {
-    "location": "New York (JFK)",
+    "location": "New York",
     "coordinates": [-73.7781, 40.6413],
-    "date": "March 27, 2024",
+    "date": "Mar 27, 2024",
     "airline": "Delta Air Lines",
     "type": "departure"
   },
   {
-    "location": "Austin (AUS)",
+    "location": "Austin",
     "coordinates": [-97.6664, 30.1975],
-    "date": "March 27, 2024",
+    "date": "Mar 27, 2024",
     "airline": "Delta Air Lines",
     "type": "arrival"
   },
   {
-    "location": "Austin (AUS)",
+    "location": "Austin",
     "coordinates": [-97.6664, 30.1975],
-    "date": "April 2, 2024",
+    "date": "Apr 2, 2024",
     "airline": "Delta Air Lines",
     "type": "departure"
   },
   {
-    "location": "New York (JFK)",
+    "location": "New York",
     "coordinates": [-73.7781, 40.6413],
-    "date": "April 2, 2024",
+    "date": "Apr 2, 2024",
     "airline": "Delta Air Lines",
     "type": "arrival"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "April 22, 2024",
+    "date": "Apr 22, 2024",
     "airline": "American Airlines",
     "type": "departure"
   },
   {
-    "location": "Oaxaca (OAX)",
+    "location": "Oaxaca",
     "coordinates": [-96.7266, 17.0000],
-    "date": "April 22, 2024",
+    "date": "Apr 22, 2024",
     "airline": "American Airlines",
     "type": "arrival"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "July 14, 2024",
+    "date": "Jul 14, 2024",
     "airline": "American Airlines",
     "type": "departure"
   },
   {
-    "location": "Toronto (YYZ)",
+    "location": "Toronto",
     "coordinates": [-79.6248, 43.6777],
-    "date": "July 14, 2024",
+    "date": "Jul 14, 2024",
     "airline": "American Airlines",
     "type": "arrival"
   },
   {
-    "location": "Toronto (YYZ)",
+    "location": "Toronto",
     "coordinates": [-79.6248, 43.6777],
-    "date": "September 19, 2024",
+    "date": "Sep 19, 2024",
     "airline": "Air Canada",
     "type": "departure"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "September 19, 2024",
+    "date": "Sep 19, 2024",
     "airline": "Air Canada",
     "type": "arrival"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "December 22, 2024",
+    "date": "Dec 22, 2024",
     "airline": "American Airlines",
     "type": "departure"
   },
   {
-    "location": "Dallas/Fort Worth (DFW)",
+    "location": "Dallas/Fort Worth",
     "coordinates": [-97.0403, 32.8998],
-    "date": "December 22, 2024",
+    "date": "Dec 22, 2024",
     "airline": "American Airlines",
     "type": "arrival"
   },
   {
-    "location": "San Juan (SJU)",
+    "location": "San Juan",
     "coordinates": [-66.0018, 18.4394],
-    "date": "February 15, 2025",
+    "date": "Feb 15, 2025",
     "airline": "Delta Air Lines",
     "type": "departure"
   },
   {
-    "location": "New York (JFK)",
+    "location": "New York",
     "coordinates": [-73.7781, 40.6413],
-    "date": "February 15, 2025",
+    "date": "Feb 15, 2025",
     "airline": "Delta Air Lines",
     "type": "arrival"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "July 26, 2025",
+    "date": "Jul 26, 2025",
     "airline": "Delta Air Lines",
     "type": "departure"
   },
   {
-    "location": "Milwaukee (MKE)",
+    "location": "Milwaukee",
     "coordinates": [-87.8966, 42.9475],
-    "date": "July 26, 2025",
+    "date": "Jul 26, 2025",
     "airline": "Delta Air Lines",
     "type": "arrival"
   },
   {
-    "location": "Milwaukee (MKE)",
+    "location": "Milwaukee",
     "coordinates": [-87.8966, 42.9475],
-    "date": "August 9, 2025",
+    "date": "Aug 9, 2025",
     "airline": "American Airlines",
     "type": "departure"
   },
   {
-    "location": "Mexico City (MEX)",
+    "location": "Mexico City",
     "coordinates": [-99.0719, 19.4361],
-    "date": "August 9, 2025",
+    "date": "Aug 9, 2025",
     "airline": "American Airlines",
     "type": "arrival"
   },
   {
-    "location": "Mexico City (MEX)",
+    "location": "Mexico City",
     "coordinates": [-99.0719, 19.4361],
-    "date": "September 5, 2025",
+    "date": "Sep 5, 2025",
     "airline": "Delta Air Lines",
     "type": "departure"
   },
   {
-    "location": "San Francisco (SFO)",
+    "location": "San Francisco",
     "coordinates": [-122.3790, 37.6213],
-    "date": "September 5, 2025",
+    "date": "Sep 5, 2025",
     "airline": "Delta Air Lines",
     "type": "arrival"
   },
   {
-    "location": "San Francisco (SFO)",
+    "location": "San Francisco",
     "coordinates": [-122.3790, 37.6213],
-    "date": "September 15, 2025",
+    "date": "Sep 15, 2025",
     "airline": "Sun Country Airlines",
     "type": "departure"
   },
   {
-    "location": "Minneapolis/St Paul (MSP)",
+    "location": "Minneapolis/St Paul",
     "coordinates": [-93.2223, 44.8848],
-    "date": "September 15, 2025",
+    "date": "Sep 15, 2025",
     "airline": "Sun Country Airlines",
     "type": "arrival"
   },
   {
-    "location": "Minneapolis/St Paul (MSP)",
+    "location": "Minneapolis/St Paul",
     "coordinates": [-93.2223, 44.8848],
-    "date": "September 26, 2025",
+    "date": "Sep 26, 2025",
     "airline": "Sun Country Airlines",
     "type": "departure"
   },
   {
-    "location": "Austin (AUS)",
+    "location": "Austin",
     "coordinates": [-97.6664, 30.1975],
-    "date": "September 26, 2025",
+    "date": "Sep 26, 2025",
     "airline": "Sun Country Airlines",
     "type": "arrival"
   },
   {
-    "location": "Austin (AUS)",
+    "location": "Austin",
     "coordinates": [-97.6664, 30.1975],
-    "date": "October 4, 2025",
+    "date": "Oct 4, 2025",
     "airline": "American Airlines",
     "type": "departure"
   },
   {
-    "location": "Baltimore (BWI)",
+    "location": "Baltimore",
     "coordinates": [-76.6682, 39.1754],
-    "date": "October 4, 2025",
+    "date": "Oct 4, 2025",
     "airline": "American Airlines",
     "type": "arrival"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "October 31, 2025",
+    "date": "Oct 31, 2025",
     "airline": "American Airlines",
     "type": "departure"
   },
   {
-    "location": "Toronto (YYZ)",
+    "location": "Toronto",
     "coordinates": [-79.6248, 43.6777],
-    "date": "October 31, 2025",
+    "date": "Oct 31, 2025",
     "airline": "American Airlines",
     "type": "arrival"
   },
   {
-    "location": "New York (LGA)",
+    "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "November 5, 2025",
+    "date": "Nov 5, 2025",
     "airline": "Delta Air Lines",
     "type": "departure"
   },
   {
-    "location": "Toronto (YYZ)",
+    "location": "Toronto",
     "coordinates": [-79.6248, 43.6777],
-    "date": "November 5, 2025",
+    "date": "Nov 5, 2025",
     "airline": "Delta Air Lines",
     "type": "arrival"
   },
   {
-    "location": "London (LHR)",
+    "location": "London",
     "coordinates": [-0.4543, 51.4700],
-    "date": "December 6, 2025",
+    "date": "Dec 6, 2025",
     "airline": "Qatar Airways",
     "type": "departure"
   },
   {
-    "location": "Karachi (KHI)",
+    "location": "Karachi",
     "coordinates": [67.1608, 24.9065],
-    "date": "December 6, 2025",
+    "date": "Dec 6, 2025",
     "airline": "Qatar Airways",
     "type": "arrival"
   },
   {
-    "location": "London (LHR)",
+    "location": "London",
     "coordinates": [-0.4543, 51.4700],
-    "date": "December 9, 2025",
+    "date": "Dec 9, 2025",
     "airline": "Emirates",
     "type": "departure"
   },
   {
-    "location": "Karachi (KHI)",
+    "location": "Karachi",
     "coordinates": [67.1608, 24.9065],
-    "date": "December 9, 2025",
+    "date": "Dec 9, 2025",
     "airline": "Emirates",
     "type": "arrival"
   },
   {
-    "location": "Karachi (KHI)",
+    "location": "Karachi",
     "coordinates": [67.1608, 24.9065],
-    "date": "December 30, 2025",
+    "date": "Dec 30, 2025",
     "airline": "Emirates",
     "type": "departure"
   },
   {
-    "location": "Istanbul (IST)",
+    "location": "Istanbul",
     "coordinates": [28.7297, 41.2769],
-    "date": "December 30, 2025",
+    "date": "Dec 30, 2025",
     "airline": "Emirates",
     "type": "arrival"
   },
   {
-    "location": "Karachi (KHI)",
+    "location": "Karachi",
     "coordinates": [67.1608, 24.9065],
-    "date": "January 11, 2026",
+    "date": "Jan 11, 2026",
     "airline": "Emirates",
     "type": "departure"
   },
   {
-    "location": "Istanbul (IST)",
+    "location": "Istanbul",
     "coordinates": [28.7297, 41.2769],
-    "date": "January 11, 2026",
+    "date": "Jan 11, 2026",
     "airline": "Emirates",
     "type": "arrival"
   },
   {
-    "location": "Istanbul (IST)",
+    "location": "Istanbul",
     "coordinates": [28.7297, 41.2769],
-    "date": "January 31, 2026",
+    "date": "Jan 31, 2026",
     "airline": "Turkish Airlines",
     "type": "departure"
   },
   {
-    "location": "New York (JFK)",
+    "location": "New York",
     "coordinates": [-73.7781, 40.6413],
-    "date": "January 31, 2026",
+    "date": "Jan 31, 2026",
     "airline": "Turkish Airlines",
     "type": "arrival"
   }
