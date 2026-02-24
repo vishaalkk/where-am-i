@@ -4,57 +4,38 @@ site_author: Vishal | وشال
 theme:
   name: material
   font:
-    text: Albert Sans
+    text: Space Mono
+    code: Space Mono
   icon:
-    logo: material/library
+    logo: material/rocket-launch
   favicon: images/icons8-poem-stickers-32.png
   palette:
-    - scheme: default
-      primary: green
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
+    # Vaporwave Mode
     - scheme: slate
-      primary: green
+      primary: deep-purple
+      accent: pink
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
   features:
     - navigation.instant
-    - navigation.instant.progress
     - navigation.tracking
-    - toc.follow
-    # - navigation.tabs
-    - search.suggest
-    - search.share
-    - search.highlight
     - header.autohide
 plugins:
   - search
 markdown_extensions:
   - toc:
       permalink: true
-      slugify: !!python/object/apply:pymdownx.slugs.slugify
-        kwds:
-          case: lower
-  - tables
   - admonition
-  - footnotes
   - pymdownx.details
-  - pymdownx.betterem
-  - pymdownx.magiclink
-  - pymdownx.escapeall:
-      nbsp: true
-      hardbreak: true
+  - pymdownx.superfences
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  - attr_list
 extra_css:
   - stylesheets/extra.css
-  - stylesheets/details.css
-  - https://unpkg.com/leaflet@1.9.4/dist/leaflet.css
+  - https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css
 extra_javascript:
-  - https://unpkg.com/leaflet@1.9.4/dist/leaflet.js
-  - assets/fetch-location.js
-  # - assets/auth.js
+  - https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js
+  - https://unpkg.com/@turf/turf@6/turf.min.js
+  - assets/map-animation.js
