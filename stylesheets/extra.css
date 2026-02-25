@@ -1,0 +1,268 @@
+/* VAPORWAVE / RETRO THEME CSS */
+
+/* 1. Hide Standard MkDocs Navigation Bar */
+.md-header, .md-tabs, .md-footer {
+  display: none !important; /* Force hide everything */
+}
+
+/* 2. Main Layout - Full Screen */
+.md-main__inner {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  max-width: none !important; /* Remove MkDocs width constraint */
+  width: 100% !important;
+}
+
+.md-grid {
+  max-width: none !important; /* Remove grid constraint */
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.md-content {
+  padding: 0 !important;
+  background: #1a0b2e; /* Deep purple background */
+  min-height: 100vh;
+  display: flex; /* Flex centering */
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 3. Typography & Glows */
+body {
+  font-family: 'Space Mono', monospace;
+  background-color: #1a0b2e;
+  color: #ff00ff; /* Neon Pink text */
+  text-shadow: 0 0 5px #ff00ff;
+}
+
+h1 {
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #ff00ff, #00ffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.5); 
+}
+
+/* 4. Map Container - CRT Effect */
+#map-container {
+  position: relative;
+  width: 90vw;
+  height: 70vh;
+  margin: 5vh auto;
+  border: 4px solid #00ffff; /* Cyan Border */
+  box-shadow: 0 0 20px #00ffff, inset 0 0 20px #00ffff; /* Glowing Border */
+  border-radius: 0; /* Sharp corners for retro look */
+  overflow: hidden;
+  background: black;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  opacity: 0.9; /* Slightly dim for CRT effect */
+}
+
+/* CRT Scanline Overlay */
+#map-container::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 5;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+/* 5. Retro Button */
+#start-btn {
+  background: #ff00ff; /* Hot Pink */
+  color: #1a0b2e; /* Dark Purple Text */
+  font-family: 'Space Mono', monospace;
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding: 15px 40px;
+  border: 4px solid #1a0b2e;
+  box-shadow: 5px 5px 0px #00ffff; /* Hard Shadow */
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.1s;
+}
+
+#start-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0px #00ffff;
+}
+
+#start-btn:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0px 0px 0px #00ffff;
+}
+
+/* 6. Stats Box - Retro Console (Bottom Center) */
+.stats-card {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 840px; 
+  max-width: 95vw;
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid #00ff00;
+  border-radius: 4px;
+  padding: 10px 0; /* Vertical padding only */
+  color: #00ff00;
+  font-family: 'Space Mono', monospace;
+  z-index: 10;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+  
+  /* GRID LAYOUT */
+  display: grid;
+  grid-template-columns: 180px 160px 100px 120px 160px 120px; 
+  gap: 0;
+  align-items: center;
+}
+
+.stats-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px dashed #00ff00;
+  padding: 0 10px;
+  height: 100%;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Balance first and last columns */
+.stats-group:first-child {
+  padding-left: 20px;
+}
+
+.stats-group:last-child {
+  border-right: none;
+  padding-right: 20px;
+}
+
+.stats-label {
+  font-size: 0.65rem;
+  color: #00ff00;
+  opacity: 0.7;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stats-value {
+  font-size: 1rem;
+  font-weight: bold;
+  text-shadow: 0 0 5px #00ff00;
+  white-space: nowrap; /* Prevent wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-align: center;
+}
+
+/* Specific tweaks for long dates */
+#date-stat {
+  font-size: 0.9rem; /* Slightly smaller for dates */
+}
+
+/* 7. Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #1a0b2e; 
+}
+::-webkit-scrollbar-thumb {
+  background: #ff00ff; 
+  border: 1px solid #1a0b2e;
+}
+
+/* 8. MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+  /* Flex Column Container */
+  #map-container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw !important;
+    height: auto !important;
+    margin: 0 !important;
+    border: none;
+  }
+
+  /* Map takes top half */
+  #map {
+    height: 50vh !important;
+    width: 100%;
+    border-bottom: 2px solid #00ff00;
+  }
+
+  /* Stats Console takes bottom half */
+  .stats-card {
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: #000 !important;
+    
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    padding: 15px !important;
+  }
+
+  /* Full width groups */
+  .stats-group:nth-child(1),
+  .stats-group:nth-child(2) {
+    grid-column: 1 / -1;
+    border-right: none !important;
+    border-bottom: 1px dashed #00ff00;
+    padding-bottom: 8px;
+    margin-bottom: 5px;
+  }
+
+  /* Left column groups (Pilot, Controls) */
+  .stats-group:nth-child(3),
+  .stats-group:nth-child(5) {
+    border-right: 1px dashed #00ff00 !important;
+    padding-right: 10px;
+  }
+
+  /* Right column groups (Velocity, Flights) */
+  .stats-group:nth-child(4),
+  .stats-group:nth-child(6) {
+    border-right: none !important;
+    padding-left: 10px;
+  }
+
+  /* Replay Button */
+  #start-btn {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem !important;
+    padding: 8px 16px !important;
+    z-index: 20;
+    width: auto;
+    white-space: nowrap;
+  }
+
+  h1 {
+    font-size: 1.5rem !important;
+    margin: 10px 0 !important;
+  }
+}
