@@ -273,17 +273,19 @@ document.addEventListener('DOMContentLoaded', async function () {
     let currentPilot = "cat";
 
     // Pilot Switcher
-    window.switchPilot = (type) => {
+    const switchPilot = (type) => {
         currentPilot = type;
         // Update UI
         ['cat', 'plane', 'ufo'].forEach(p => {
             const btn = document.getElementById(`btn-${p}`);
-            if (p === type) {
-                btn.style.opacity = '1';
-                btn.style.filter = 'drop-shadow(0 0 2px #00ff00)';
-            } else {
-                btn.style.opacity = '0.5';
-                btn.style.filter = 'none';
+            if (btn) {
+                if (p === type) {
+                    btn.style.opacity = '1';
+                    btn.style.filter = 'drop-shadow(0 0 2px #00ff00)';
+                } else {
+                    btn.style.opacity = '0.5';
+                    btn.style.filter = 'none';
+                }
             }
         });
         
@@ -292,6 +294,14 @@ document.addEventListener('DOMContentLoaded', async function () {
             map.setLayoutProperty('plane', 'icon-image', type);
         }
     };
+
+    // Bind Pilot Buttons (Mobile Friendly)
+    document.querySelectorAll('.pilot-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const type = e.currentTarget.getAttribute('data-type');
+            switchPilot(type);
+        });
+    });
 
     // Helper to stop everything
     function stopAnimation() {

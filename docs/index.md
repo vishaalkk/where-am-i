@@ -28,9 +28,9 @@ hide:
     <div class="stats-group">
       <div class="stats-label">PILOT</div>
       <div style="display: flex; gap: 8px;">
-        <button class="pilot-btn" id="btn-cat" onclick="switchPilot('cat')" style="background:none; border:none; cursor:pointer; font-size:1.2rem; padding:0; filter: drop-shadow(0 0 2px #00ff00);">🐱</button>
-        <button class="pilot-btn" id="btn-plane" onclick="switchPilot('plane')" style="background:none; border:none; cursor:pointer; font-size:1.2rem; padding:0; opacity:0.5;">✈️</button>
-        <button class="pilot-btn" id="btn-ufo" onclick="switchPilot('ufo')" style="background:none; border:none; cursor:pointer; font-size:1.2rem; padding:0; opacity:0.5;">🛸</button>
+        <button class="pilot-btn" id="btn-cat" data-type="cat" style="background:none; border:none; cursor:pointer; font-size:1.2rem; padding:0; filter: drop-shadow(0 0 2px #00ff00);">🐱</button>
+        <button class="pilot-btn" id="btn-plane" data-type="plane" style="background:none; border:none; cursor:pointer; font-size:1.2rem; padding:0; opacity:0.5;">✈️</button>
+        <button class="pilot-btn" id="btn-ufo" data-type="ufo" style="background:none; border:none; cursor:pointer; font-size:1.2rem; padding:0; opacity:0.5;">🛸</button>
       </div>
     </div>
     <div class="stats-group">
