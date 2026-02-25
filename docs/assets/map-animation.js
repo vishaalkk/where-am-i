@@ -126,12 +126,12 @@ document.addEventListener('DOMContentLoaded', async function () {
             'source': 'route',
             'layout': {
                 'line-join': 'round',
-                'line-cap': 'round' // Square cap for pixel look? Let's stick to round for smooth turns
+                'line-cap': 'round' 
             },
             'paint': {
-                'line-color': '#ff99cc', // Nyan Pink
-                'line-width': 6, // Thicker trail
-                'line-dasharray': [1, 0], // Solid line for rainbow trail
+                'line-color': ['get', 'color'], // Dynamic Color
+                'line-width': 3, 
+                'line-dasharray': [1, 0], 
                 'line-opacity': 0.8
             }
         });
@@ -272,14 +272,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     let isPlaying = false;
     let autoPlay = false; 
     let isPaused = false; 
+    let flightHistory = {}; // Track route frequency
 
     // Helper to stop everything
     function stopAnimation() {
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
         if (timeoutId) clearTimeout(timeoutId);
         isPlaying = false;
-        // Don't reset isPaused here to allow pause/resume flow?
-        // Actually, if we stop animation (e.g. manual nav), we should unpause.
         isPaused = false;
         if (pauseBtn) pauseBtn.innerText = "||";
     }
@@ -320,6 +319,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         // Enable AutoPlay for Replay History
         autoPlay = true;
         isPaused = false;
+        flightHistory = {}; // Clear history
+        window.historyFeatures = []; // Clear visual history
         currentSegmentIndex = 0;
         setTimeout(playNextSegment, 1000);
     });
@@ -355,6 +356,18 @@ document.addEventListener('DOMContentLoaded', async function () {
         
         if (currentSegmentIndex > 0) {
             currentSegmentIndex--;
+            // We need to rebuild flightHistory up to this point?
+            // Yes, complex.
+            // For now, let's just clear history and rebuild it quickly?
+            // Or just ignore history consistency on 'Prev' (visual artifacts might occur but acceptable).
+            // Better: Rebuild history from scratch loop.
+            flightHistory = {};
+            for(let i=0; i<currentSegmentIndex; i++) {
+                const s = travels[i].coordinates;
+                const e = travels[i+1].coordinates;
+                const key = [s[0],s[1],e[0],e[1]].sort().join('|');
+                flightHistory[key] = (flightHistory[key] || 0) + 1;
+            }
             playNextSegment(); 
         }
     });
@@ -385,31 +398,35 @@ document.addEventListener('DOMContentLoaded', async function () {
         locationStat.innerText = end.location.split(',')[0].toUpperCase();
         dateStat.innerText = end.date ? end.date.split(' - ')[0] : '...';
 
-        // Draw Route (History)
-        const pastCoordinates = travels.slice(0, currentSegmentIndex + 1).map(t => t.coordinates);
-        map.getSource('route').setData({
-            'type': 'FeatureCollection',
-            'features': [{
-                'type': 'Feature',
-                'geometry': {
-                    'type': 'LineString',
-                    'coordinates': pastCoordinates
-                }
-            }]
-        });
+        // Pick Random Neon Color for this segment
+        const neonColors = ['#ff00ff', '#00ffff', '#00ff00', '#ffff00', '#ff0000', '#ad00ff', '#ffaa00', '#ff99cc'];
+        const segmentColor = neonColors[Math.floor(Math.random() * neonColors.length)];
 
-        // Calculate Path (Linear)
+        // 1. Calculate Path with Curve
         const startLng = start.coordinates[0];
         const startLat = start.coordinates[1];
         const endLng = end.coordinates[0];
         const endLat = end.coordinates[1];
+        
+        // Route Key
+        const routeKey = [startLng, startLat, endLng, endLat].sort().join('|');
+        const flightCount = flightHistory[routeKey] || 0;
+        flightHistory[routeKey] = flightCount + 1;
+        
+        // Curve Logic
+        const curveMagnitude = (flightCount === 0) ? 0 : (Math.ceil(flightCount / 2) * (flightCount % 2 === 0 ? -1 : 1)) * 5.0; 
+        
         const arcCoords = [];
         const steps = 200; 
 
         for (let i = 0; i <= steps; i++) {
             const t = i / steps;
             const lng = startLng + (endLng - startLng) * t;
-            const lat = startLat + (endLat - startLat) * t;
+            let lat = startLat + (endLat - startLat) * t;
+            
+            // Add Curve
+            lat += Math.sin(t * Math.PI) * curveMagnitude;
+            
             arcCoords.push([lng, lat]);
         }
         
@@ -421,10 +438,6 @@ document.addEventListener('DOMContentLoaded', async function () {
             easing: (t) => t * (2 - t), 
             essential: true
         });
-
-        // Rhumb Bearing
-        const rawBearing = turf.rhumbBearing(turf.point(start.coordinates), turf.point(end.coordinates));
-        const catRotation = rawBearing - 90;
 
         // Animate Plane Loop
         let frameIndex = 0;
@@ -441,12 +454,16 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             // Calculate Speed
             const speedVal = parseInt(speedSlider.value); 
-            // If skipping, go super fast
             const speedFactor = skipCurrent ? 1000 : speedVal; 
 
             if (frameIndex < arcCoords.length) {
                 const currentCoord = arcCoords[frameIndex];
                 
+                // Dynamic Bearing
+                const nextP = arcCoords[Math.min(frameIndex + 5, arcCoords.length - 1)];
+                const currentBearing = turf.rhumbBearing(turf.point(currentCoord), turf.point(nextP));
+                const catRotation = currentBearing - 90;
+
                 // Update Plane
                 map.getSource('plane').setData({
                     'type': 'FeatureCollection',
@@ -461,17 +478,20 @@ document.addEventListener('DOMContentLoaded', async function () {
                 });
 
                 // Update Route
-                const currentPath = arcCoords.slice(0, frameIndex + 1);
-                const fullPath = [...pastCoordinates, ...currentPath];
+                const currentTrail = {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'LineString',
+                        'coordinates': arcCoords.slice(0, frameIndex + 1)
+                    },
+                    'properties': { 'color': segmentColor }
+                };
+                
+                const allFeatures = [...(window.historyFeatures || []), currentTrail];
+                
                 map.getSource('route').setData({
                     'type': 'FeatureCollection',
-                    'features': [{
-                        'type': 'Feature',
-                        'geometry': {
-                            'type': 'LineString',
-                            'coordinates': fullPath
-                        }
-                    }]
+                    'features': allFeatures
                 });
 
                 frameIndex += speedFactor; 
@@ -479,9 +499,19 @@ document.addEventListener('DOMContentLoaded', async function () {
             } else {
                 // Arrived
                 dateStat.innerText = end.date || 'ARRIVED';
-                isPlaying = false; // Stopped
+                isPlaying = false; 
                 
-                // If AutoPlay, continue. Else Stop.
+                // Commit this flight to historyFeatures
+                if (!window.historyFeatures) window.historyFeatures = [];
+                window.historyFeatures.push({
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'LineString',
+                        'coordinates': arcCoords
+                    },
+                    'properties': { 'color': segmentColor }
+                });
+                
                 if (autoPlay) {
                     currentSegmentIndex++;
                     timeoutId = setTimeout(playNextSegment, 1000); 
