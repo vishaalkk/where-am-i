@@ -14,6 +14,48 @@
     "type": "arrival"
   },
   {
+    "location": "Newark",
+    "coordinates": [-74.1745, 40.6895],
+    "date": "Oct 31, 2017",
+    "airline": "United Airlines",
+    "type": "departure"
+  },
+  {
+    "location": "San Francisco",
+    "coordinates": [-122.3790, 37.6213],
+    "date": "Oct 31, 2017",
+    "airline": "United Airlines",
+    "type": "arrival"
+  },
+  {
+    "location": "San Francisco",
+    "coordinates": [-122.3790, 37.6213],
+    "date": "Nov 4, 2017",
+    "airline": "United Airlines",
+    "type": "departure"
+  },
+  {
+    "location": "Newark",
+    "coordinates": [-74.1745, 40.6895],
+    "date": "Nov 4, 2017",
+    "airline": "United Airlines",
+    "type": "arrival"
+  },
+  {
+    "location": "New York",
+    "coordinates": [-73.7781, 40.6413],
+    "date": "Jan 3, 2018",
+    "airline": "JetBlue Airways",
+    "type": "departure"
+  },
+  {
+    "location": "Oakland",
+    "coordinates": [-122.2207, 37.7213],
+    "date": "Jan 3, 2018",
+    "airline": "JetBlue Airways",
+    "type": "arrival"
+  },
+  {
     "location": "San Francisco",
     "coordinates": [-122.3790, 37.6213],
     "date": "Sep 2, 2018",
@@ -150,20 +192,6 @@
     "location": "Karachi",
     "coordinates": [67.1608, 24.9065],
     "date": "Dec 4, 2021",
-    "airline": "Emirates",
-    "type": "arrival"
-  },
-  {
-    "location": "Karachi",
-    "coordinates": [67.1608, 24.9065],
-    "date": "Dec 31, 2021",
-    "airline": "Emirates",
-    "type": "departure"
-  },
-  {
-    "location": "New York",
-    "coordinates": [-73.7781, 40.6413],
-    "date": "Dec 31, 2021",
     "airline": "Emirates",
     "type": "arrival"
   },
@@ -632,43 +660,29 @@
   {
     "location": "New York",
     "coordinates": [-73.8740, 40.7769],
-    "date": "Oct 31, 2025",
-    "airline": "American Airlines",
-    "type": "departure"
-  },
-  {
-    "location": "Toronto",
-    "coordinates": [-79.6248, 43.6777],
-    "date": "Oct 31, 2025",
-    "airline": "American Airlines",
-    "type": "arrival"
-  },
-  {
-    "location": "New York",
-    "coordinates": [-73.8740, 40.7769],
-    "date": "Nov 5, 2025",
+    "date": "Nov 6, 2025",
     "airline": "Delta Air Lines",
     "type": "departure"
   },
   {
     "location": "Toronto",
     "coordinates": [-79.6248, 43.6777],
-    "date": "Nov 5, 2025",
+    "date": "Nov 6, 2025",
     "airline": "Delta Air Lines",
     "type": "arrival"
+  },
+  {
+    "location": "Toronto",
+    "coordinates": [-79.6248, 43.6777],
+    "date": "Nov 13, 2025",
+    "airline": "Air Canada",
+    "type": "departure"
   },
   {
     "location": "London",
     "coordinates": [-0.4543, 51.4700],
-    "date": "Dec 6, 2025",
-    "airline": "Qatar Airways",
-    "type": "departure"
-  },
-  {
-    "location": "Karachi",
-    "coordinates": [67.1608, 24.9065],
-    "date": "Dec 6, 2025",
-    "airline": "Qatar Airways",
+    "date": "Nov 13, 2025",
+    "airline": "Air Canada",
     "type": "arrival"
   },
   {
@@ -682,20 +696,6 @@
     "location": "Karachi",
     "coordinates": [67.1608, 24.9065],
     "date": "Dec 9, 2025",
-    "airline": "Emirates",
-    "type": "arrival"
-  },
-  {
-    "location": "Karachi",
-    "coordinates": [67.1608, 24.9065],
-    "date": "Dec 30, 2025",
-    "airline": "Emirates",
-    "type": "departure"
-  },
-  {
-    "location": "Istanbul",
-    "coordinates": [28.7297, 41.2769],
-    "date": "Dec 30, 2025",
     "airline": "Emirates",
     "type": "arrival"
   },

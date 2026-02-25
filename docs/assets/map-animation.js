@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const startBtn = document.getElementById('start-btn');
     const locationStat = document.getElementById('location-stat');
     const dateStat = document.getElementById('date-stat');
+    const flightCountStat = document.getElementById('flight-count');
     
     let mapLoaded = false;
     let travels = [];
@@ -70,45 +71,40 @@ document.addEventListener('DOMContentLoaded', async function () {
         mapLoaded = true;
         if (travels.length === 0) return;
 
-        // Load Plane Icon - DETAILED NYAN CAT
-        const planeSvg = `<svg width="60" height="40" viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg">
-            <!-- POPTART BODY -->
-            <rect x="15" y="10" width="30" height="20" fill="#FFCC99" stroke="#000" stroke-width="2"/>
-            <!-- PINK FILLING -->
-            <rect x="18" y="13" width="24" height="14" fill="#FF99FF"/>
+        // ----------------- LOAD ICONS -----------------
+        const catSvg = `<svg width="60" height="40" viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg">
+            <!-- BODY -->
+            <rect x="10" y="10" width="40" height="25" fill="#ff99cc" stroke="#000" stroke-width="2"/>
             <!-- SPRINKLES -->
-            <circle cx="20" cy="15" r="1.5" fill="#FF0000"/>
-            <circle cx="30" cy="15" r="1.5" fill="#FF0000"/>
-            <circle cx="38" cy="18" r="1.5" fill="#FF0000"/>
-            <circle cx="22" cy="22" r="1.5" fill="#FF0000"/>
-            <circle cx="35" cy="23" r="1.5" fill="#FF0000"/>
-            
+            <circle cx="15" cy="15" r="1.5" fill="#FF0000"/>
+            <circle cx="25" cy="15" r="1.5" fill="#FF0000"/>
+            <circle cx="35" cy="18" r="1.5" fill="#FF0000"/>
+            <circle cx="20" cy="25" r="1.5" fill="#FF0000"/>
+            <circle cx="30" cy="22" r="1.5" fill="#FF0000"/>
             <!-- HEAD -->
-            <rect x="40" y="5" width="18" height="15" fill="#999999" stroke="#000" stroke-width="2"/>
+            <rect x="40" y="5" width="20" height="20" fill="#999999" stroke="#000" stroke-width="2"/>
             <polygon points="42,5 45,0 48,5" fill="#999999" stroke="#000" stroke-width="1"/>
             <polygon points="52,5 55,0 58,5" fill="#999999" stroke="#000" stroke-width="1"/>
-            <rect x="44" y="10" width="3" height="3" fill="#000"/>
-            <rect x="52" y="10" width="3" height="3" fill="#000"/>
-            <!-- MOUTH -->
-            <path d="M48 16 Q 50 18 52 16" stroke="#000" fill="none" stroke-width="1"/>
-
-            <!-- TAIL -->
-            <path d="M15 20 Q 5 15 10 25" stroke="#999999" stroke-width="3" fill="none"/>
-            
-            <!-- LEGS -->
-            <rect x="18" y="30" width="4" height="5" fill="#999999" stroke="#000" stroke-width="1"/>
-            <rect x="38" y="30" width="4" height="5" fill="#999999" stroke="#000" stroke-width="1"/>
-            <rect x="25" y="30" width="4" height="5" fill="#999999" stroke="#000" stroke-width="1"/>
-            <rect x="31" y="30" width="4" height="5" fill="#999999" stroke="#000" stroke-width="1"/>
+            <rect x="45" y="10" width="4" height="4" fill="#000"/>
+            <rect x="53" y="10" width="4" height="4" fill="#000"/>
+            <path d="M10 20 Q 0 15 5 25" stroke="#999999" stroke-width="3" fill="none"/>
+            <rect x="15" y="35" width="4" height="5" fill="#999999"/>
+            <rect x="35" y="35" width="4" height="5" fill="#999999"/>
         </svg>`;
         
-        const planeImage = new Image(60, 40);
-        planeImage.onload = () => {
-            if (!map.hasImage('plane-icon')) {
-                map.addImage('plane-icon', planeImage, { sdf: false });
-            }
+        const paperPlaneSvg = `<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><path d="M10 50 L50 30 L10 10 L20 30 Z" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/><path d="M20 30 L50 30" stroke="#ffffff" stroke-width="2"/></svg>`;
+        
+        const ufoSvg = `<svg width="60" height="40" viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><ellipse cx="30" cy="20" rx="25" ry="10" fill="#55ff55" stroke="#00ff00" stroke-width="2"/><ellipse cx="30" cy="15" rx="12" ry="8" fill="#aaffaa" stroke="#00ff00" stroke-width="1"/><circle cx="15" cy="20" r="2" fill="#ffff00"/><circle cx="30" cy="25" r="2" fill="#ffff00"/><circle cx="45" cy="20" r="2" fill="#ffff00"/></svg>`;
+
+        const loadIcon = (name, svg, w, h) => {
+            const img = new Image(w, h);
+            img.onload = () => { if (!map.hasImage(name)) map.addImage(name, img, { sdf: false }); };
+            img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
         };
-        planeImage.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(planeSvg);
+
+        loadIcon('cat', catSvg, 60, 40);
+        loadIcon('plane', paperPlaneSvg, 60, 60);
+        loadIcon('ufo', ufoSvg, 60, 40);
 
         // Add Route Source
         map.addSource('route', {
@@ -129,7 +125,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 'line-cap': 'round' 
             },
             'paint': {
-                'line-color': ['get', 'color'], // Dynamic Color
+                'line-color': ['get', 'color'], 
                 'line-width': 3, 
                 'line-dasharray': [1, 0], 
                 'line-opacity': 0.8
@@ -151,8 +147,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             'type': 'symbol',
             'source': 'plane',
             'layout': {
-                'icon-image': 'plane-icon',
-                'icon-size': 0.8,
+                'icon-image': 'cat', // Default to cat
+                'icon-size': 0.6,
                 'icon-rotate': ['get', 'bearing'],
                 'icon-rotation-alignment': 'map',
                 'icon-allow-overlap': true,
@@ -244,6 +240,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             // Stats Update
             locationStat.innerText = currentLoc.location.split(',')[0].toUpperCase();
             dateStat.innerText = "PRESENT";
+            flightCountStat.innerText = travels.length.toString().padStart(2, '0');
             
             // Map Jump
             map.jumpTo({ center: currentLoc.coordinates, zoom: 4 });
@@ -272,7 +269,29 @@ document.addEventListener('DOMContentLoaded', async function () {
     let isPlaying = false;
     let autoPlay = false; 
     let isPaused = false; 
-    let flightHistory = {}; // Track route frequency
+    let flightHistory = {}; 
+    let currentPilot = "cat";
+
+    // Pilot Switcher
+    window.switchPilot = (type) => {
+        currentPilot = type;
+        // Update UI
+        ['cat', 'plane', 'ufo'].forEach(p => {
+            const btn = document.getElementById(`btn-${p}`);
+            if (p === type) {
+                btn.style.opacity = '1';
+                btn.style.filter = 'drop-shadow(0 0 2px #00ff00)';
+            } else {
+                btn.style.opacity = '0.5';
+                btn.style.filter = 'none';
+            }
+        });
+        
+        // Update Icon immediately
+        if (map.getLayer('plane')) {
+            map.setLayoutProperty('plane', 'icon-image', type);
+        }
+    };
 
     // Helper to stop everything
     function stopAnimation() {
@@ -286,15 +305,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     startBtn.addEventListener('click', () => {
         if (!mapLoaded || travels.length < 2) return;
         
-        // Reset Map to Start
         const startLoc = travels[0];
         map.jumpTo({ center: startLoc.coordinates, zoom: 3 });
         
-        // Reset Stats
         locationStat.innerText = "RESETTING...";
         dateStat.innerText = "----";
         
-        // Reset Cat
+        // Reset Cat/Pilot
         map.getSource('plane').setData({
             'type': 'FeatureCollection',
             'features': [{
@@ -316,11 +333,10 @@ document.addEventListener('DOMContentLoaded', async function () {
         startBtn.style.opacity = '0'; 
         startBtn.style.pointerEvents = 'none'; 
         
-        // Enable AutoPlay for Replay History
         autoPlay = true;
         isPaused = false;
-        flightHistory = {}; // Clear history
-        window.historyFeatures = []; // Clear visual history
+        flightHistory = {}; 
+        window.historyFeatures = []; 
         currentSegmentIndex = 0;
         setTimeout(playNextSegment, 1000);
     });
@@ -336,7 +352,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 
     nextBtn.addEventListener('click', () => {
-        autoPlay = false; // Manual Mode
+        autoPlay = false; 
         isPaused = false;
         pauseBtn.innerText = "||";
         
@@ -356,18 +372,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         
         if (currentSegmentIndex > 0) {
             currentSegmentIndex--;
-            // We need to rebuild flightHistory up to this point?
-            // Yes, complex.
-            // For now, let's just clear history and rebuild it quickly?
-            // Or just ignore history consistency on 'Prev' (visual artifacts might occur but acceptable).
-            // Better: Rebuild history from scratch loop.
-            flightHistory = {};
-            for(let i=0; i<currentSegmentIndex; i++) {
-                const s = travels[i].coordinates;
-                const e = travels[i+1].coordinates;
-                const key = [s[0],s[1],e[0],e[1]].sort().join('|');
-                flightHistory[key] = (flightHistory[key] || 0) + 1;
-            }
             playNextSegment(); 
         }
     });
@@ -382,7 +386,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (pauseBtn) pauseBtn.innerText = "||";
 
         if (currentSegmentIndex >= travels.length - 1) {
-            // Journey Complete
             startBtn.style.opacity = '1';
             startBtn.style.pointerEvents = 'all';
             startBtn.innerText = 'REPLAY HISTORY ↺';
@@ -394,27 +397,46 @@ document.addEventListener('DOMContentLoaded', async function () {
         const start = travels[currentSegmentIndex];
         const end = travels[currentSegmentIndex + 1];
         
-        // Update Stats
         locationStat.innerText = end.location.split(',')[0].toUpperCase();
         dateStat.innerText = end.date ? end.date.split(' - ')[0] : '...';
+        flightCountStat.innerText = (currentSegmentIndex + 1).toString().padStart(2, '0');
 
-        // Pick Random Neon Color for this segment
-        const neonColors = ['#ff00ff', '#00ffff', '#00ff00', '#ffff00', '#ff0000', '#ad00ff', '#ffaa00', '#ff99cc'];
-        const segmentColor = neonColors[Math.floor(Math.random() * neonColors.length)];
+        // ----------------- PILOT CONFIG -----------------
+        let segmentColor;
+        
+        if (currentPilot === 'cat') {
+            const catNeon = ['#ff00ff', '#ff00aa', '#ff99cc', '#ad00ff', '#ffaa00', '#ff0055', '#cc00ff'];
+            segmentColor = catNeon[Math.floor(Math.random() * catNeon.length)];
+        } else if (currentPilot === 'plane') {
+            const planeColors = ['#ffffff', '#00ffff', '#aaffff', '#cccccc', '#00ccff', '#88ffff', '#e0f7fa'];
+            segmentColor = planeColors[Math.floor(Math.random() * planeColors.length)];
+        } else if (currentPilot === 'ufo') {
+            const ufoColors = ['#00ff00', '#ccff00', '#ffff00', '#55ff55', '#33ff33', '#99ff00', '#eeff41'];
+            segmentColor = ufoColors[Math.floor(Math.random() * ufoColors.length)];
+        }
 
-        // 1. Calculate Path with Curve
+        // Toggle Layer Style Global
+        if (currentPilot === 'plane') {
+            map.setPaintProperty('route', 'line-dasharray', [2, 2]);
+        } else {
+            map.setPaintProperty('route', 'line-dasharray', [1, 0]);
+        }
+
+        // 1. Calculate Path
         const startLng = start.coordinates[0];
         const startLat = start.coordinates[1];
         const endLng = end.coordinates[0];
         const endLat = end.coordinates[1];
         
-        // Route Key
         const routeKey = [startLng, startLat, endLng, endLat].sort().join('|');
         const flightCount = flightHistory[routeKey] || 0;
         flightHistory[routeKey] = flightCount + 1;
         
-        // Curve Logic
-        const curveMagnitude = (flightCount === 0) ? 0 : (Math.ceil(flightCount / 2) * (flightCount % 2 === 0 ? -1 : 1)) * 5.0; 
+        // Curve Logic (Only for Cat)
+        let curveMagnitude = 0;
+        if (currentPilot === 'cat') {
+            curveMagnitude = (flightCount === 0) ? 0 : (Math.ceil(flightCount / 2) * (flightCount % 2 === 0 ? -1 : 1)) * 5.0; 
+        }
         
         const arcCoords = [];
         const steps = 200; 
@@ -425,7 +447,13 @@ document.addEventListener('DOMContentLoaded', async function () {
             let lat = startLat + (endLat - startLat) * t;
             
             // Add Curve
-            lat += Math.sin(t * Math.PI) * curveMagnitude;
+            if (currentPilot === 'cat') {
+                lat += Math.sin(t * Math.PI) * curveMagnitude;
+            } 
+            // Add Jitter (UFO)
+            else if (currentPilot === 'ufo') {
+                lat += (Math.random() - 0.5) * 0.5; // Random shake
+            }
             
             arcCoords.push([lng, lat]);
         }
@@ -439,20 +467,20 @@ document.addEventListener('DOMContentLoaded', async function () {
             essential: true
         });
 
-        // Animate Plane Loop
+        // Ensure correct icon is set
+        map.setLayoutProperty('plane', 'icon-image', currentPilot);
+
         let frameIndex = 0;
         const speedSlider = document.getElementById('speed-slider');
 
         function frame() {
             if (!isPlaying) return; 
 
-            // PAUSE LOGIC
             if (isPaused) {
                 animationFrameId = requestAnimationFrame(frame);
                 return;
             }
 
-            // Calculate Speed
             const speedVal = parseInt(speedSlider.value); 
             const speedFactor = skipCurrent ? 1000 : speedVal; 
 
@@ -460,9 +488,17 @@ document.addEventListener('DOMContentLoaded', async function () {
                 const currentCoord = arcCoords[frameIndex];
                 
                 // Dynamic Bearing
-                const nextP = arcCoords[Math.min(frameIndex + 5, arcCoords.length - 1)];
-                const currentBearing = turf.rhumbBearing(turf.point(currentCoord), turf.point(nextP));
-                const catRotation = currentBearing - 90;
+                let catRotation;
+                if (currentPilot === 'ufo') {
+                    catRotation = frameIndex * 10; // Spin
+                } else {
+                    const nextP = arcCoords[Math.min(frameIndex + 5, arcCoords.length - 1)];
+                    const currentBearing = turf.rhumbBearing(turf.point(currentCoord), turf.point(nextP));
+                    // Paper Plane SVG points Up-Right (45 deg) -> Offset -45.
+                    // Cat SVG points Right (90 deg) -> Offset -90.
+                    const offset = (currentPilot === 'plane') ? -45 : -90;
+                    catRotation = currentBearing + offset;
+                }
 
                 // Update Plane
                 map.getSource('plane').setData({
@@ -497,11 +533,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                 frameIndex += speedFactor; 
                 animationFrameId = requestAnimationFrame(frame);
             } else {
-                // Arrived
                 dateStat.innerText = end.date || 'ARRIVED';
                 isPlaying = false; 
                 
-                // Commit this flight to historyFeatures
                 if (!window.historyFeatures) window.historyFeatures = [];
                 window.historyFeatures.push({
                     'type': 'Feature',
