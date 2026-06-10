@@ -726,5 +726,33 @@
     "date": "Jan 31, 2026",
     "airline": "Turkish Airlines",
     "type": "arrival"
+  },
+  {
+    "location": "New York",
+    "coordinates": [-73.8740, 40.7769],
+    "date": "May 2, 2026",
+    "airline": "Southwest Airlines",
+    "type": "departure"
+  },
+  {
+    "location": "Milwaukee",
+    "coordinates": [-87.8966, 42.9475],
+    "date": "May 2, 2026",
+    "airline": "Southwest Airlines",
+    "type": "arrival"
+  },
+  {
+    "location": "Milwaukee",
+    "coordinates": [-87.8966, 42.9475],
+    "date": "May 16, 2026",
+    "airline": "Southwest Airlines",
+    "type": "departure"
+  },
+  {
+    "location": "New York",
+    "coordinates": [-73.8740, 40.7769],
+    "date": "May 16, 2026",
+    "airline": "Southwest Airlines",
+    "type": "arrival"
   }
 ]

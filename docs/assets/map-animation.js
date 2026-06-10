@@ -269,8 +269,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     let isPlaying = false;
     let autoPlay = false; 
     let isPaused = false; 
-    let flightHistory = {}; 
+    let flightHistory = {};
     let currentPilot = "cat";
+    let lightSpeed = false; // WARP: blast through the whole history in <10s
 
     // Pilot Switcher
     const switchPilot = (type) => {
@@ -312,15 +313,16 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (pauseBtn) pauseBtn.innerText = "||";
     }
 
-    startBtn.addEventListener('click', () => {
+    function beginReplay(fast) {
         if (!mapLoaded || travels.length < 2) return;
-        
+        lightSpeed = fast;
+
         const startLoc = travels[0];
         map.jumpTo({ center: startLoc.coordinates, zoom: 3 });
-        
-        locationStat.innerText = "RESETTING...";
+
+        locationStat.innerText = fast ? "LIGHT SPEED..." : "RESETTING...";
         dateStat.innerText = "----";
-        
+
         // Reset Cat/Pilot
         map.getSource('plane').setData({
             'type': 'FeatureCollection',
@@ -339,17 +341,22 @@ document.addEventListener('DOMContentLoaded', async function () {
             'type': 'FeatureCollection',
             'features': []
         });
-        
-        startBtn.style.opacity = '0'; 
-        startBtn.style.pointerEvents = 'none'; 
-        
+
+        startBtn.style.opacity = '0';
+        startBtn.style.pointerEvents = 'none';
+
         autoPlay = true;
         isPaused = false;
-        flightHistory = {}; 
-        window.historyFeatures = []; 
+        flightHistory = {};
+        window.historyFeatures = [];
         currentSegmentIndex = 0;
-        setTimeout(playNextSegment, 1000);
-    });
+        setTimeout(playNextSegment, fast ? 100 : 1000);
+    }
+
+    startBtn.addEventListener('click', () => beginReplay(false));
+
+    const lightBtn = document.getElementById('light-btn');
+    if (lightBtn) lightBtn.addEventListener('click', () => beginReplay(true));
 
     // Control Buttons
     const nextBtn = document.getElementById('next-btn');
@@ -401,6 +408,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             startBtn.innerText = 'REPLAY HISTORY ↺';
             locationStat.innerText = "COMPLETE";
             isPlaying = false;
+            lightSpeed = false;
             return;
         }
 
@@ -471,9 +479,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         // Animate Camera
         map.easeTo({
             center: end.coordinates,
-            zoom: 2, 
-            duration: 2000, 
-            easing: (t) => t * (2 - t), 
+            zoom: 2,
+            duration: lightSpeed ? 600 : 2000,
+            easing: (t) => t * (2 - t),
             essential: true
         });
 
@@ -491,8 +499,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                 return;
             }
 
-            const speedVal = parseInt(speedSlider.value); 
-            const speedFactor = skipCurrent ? 1000 : speedVal; 
+            const speedVal = parseInt(speedSlider.value);
+            let speedFactor = skipCurrent ? 1000 : speedVal;
+            if (lightSpeed) speedFactor = 100; // ~3 frames per segment
 
             if (frameIndex < arcCoords.length) {
                 const currentCoord = arcCoords[frameIndex];
@@ -555,10 +564,17 @@ document.addEventListener('DOMContentLoaded', async function () {
                     },
                     'properties': { 'color': segmentColor }
                 });
-                
+
+                // Render the finished segment. Essential in WARP mode, where a
+                // segment can complete in a single frame and never draw otherwise.
+                map.getSource('route').setData({
+                    'type': 'FeatureCollection',
+                    'features': window.historyFeatures
+                });
+
                 if (autoPlay) {
                     currentSegmentIndex++;
-                    timeoutId = setTimeout(playNextSegment, 1000); 
+                    timeoutId = setTimeout(playNextSegment, lightSpeed ? 0 : 1000);
                 }
             }
         }

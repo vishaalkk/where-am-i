@@ -35,7 +35,12 @@ hide:
     </div>
     <div class="stats-group">
       <div class="stats-label">VELOCITY</div>
-      <input type="range" id="speed-slider" min="1" max="10" value="2" style="width: 80px; accent-color: #00ff00; cursor: pointer;">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 6px;">
+        <input type="range" id="speed-slider" min="1" max="10" value="2" style="width: 64px; accent-color: #00ff00; cursor: pointer;">
+        <button id="light-btn" title="Light speed — replay the whole history in seconds" style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; padding: 0; background: transparent; border: 1px solid #00ff00; border-radius: 3px; cursor: pointer; flex: 0 0 auto;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#00ff00" style="filter: drop-shadow(0 0 2px #00ff00);"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+        </button>
+      </div>
     </div>
     <div class="stats-group">
       <div class="stats-label">CONTROLS</div>
