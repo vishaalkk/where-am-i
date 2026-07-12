@@ -754,5 +754,140 @@
     "date": "May 16, 2026",
     "airline": "Southwest Airlines",
     "type": "arrival"
+  },
+  {
+    "location": "New York",
+    "coordinates": [-73.8740, 40.7769],
+    "date": "Jun 10, 2026",
+    "airline": "Royal Air Maroc",
+    "type": "departure"
+  },
+  {
+    "location": "Tangier",
+    "coordinates": [-5.8129, 35.7595],
+    "date": "Jun 10, 2026",
+    "airline": "Royal Air Maroc",
+    "mode": "flight",
+    "type": "arrival"
+  },
+  {
+    "location": "Tangier",
+    "coordinates": [-5.8129, 35.7595],
+    "date": "Jun 16, 2026",
+    "airline": "CTM Bus",
+    "type": "departure"
+  },
+  {
+    "location": "Chefchaouen",
+    "coordinates": [-5.2636, 35.1688],
+    "date": "Jun 16, 2026",
+    "airline": "CTM Bus",
+    "mode": "bus",
+    "type": "arrival"
+  },
+  {
+    "location": "Chefchaouen",
+    "coordinates": [-5.2636, 35.1688],
+    "date": "Jun 18, 2026",
+    "airline": "CTM Bus",
+    "type": "departure"
+  },
+  {
+    "location": "Tangier",
+    "coordinates": [-5.8129, 35.7595],
+    "date": "Jun 18, 2026",
+    "airline": "CTM Bus",
+    "mode": "bus",
+    "type": "arrival"
+  },
+  {
+    "location": "Tangier",
+    "coordinates": [-5.8129, 35.7595],
+    "date": "Jun 18, 2026",
+    "airline": "ONCF Rail",
+    "type": "departure"
+  },
+  {
+    "location": "Marrakesh",
+    "coordinates": [-7.9811, 31.6295],
+    "date": "Jun 18, 2026",
+    "airline": "ONCF Rail",
+    "mode": "train",
+    "type": "arrival"
+  },
+  {
+    "location": "Marrakesh",
+    "coordinates": [-7.9811, 31.6295],
+    "date": "Jun 22, 2026",
+    "airline": "Transavia",
+    "type": "departure"
+  },
+  {
+    "location": "Marseille",
+    "coordinates": [5.3698, 43.2965],
+    "date": "Jun 22, 2026",
+    "airline": "Transavia",
+    "mode": "flight",
+    "type": "arrival"
+  },
+  {
+    "location": "Marseille",
+    "coordinates": [5.3698, 43.2965],
+    "date": "Jun 24, 2026",
+    "airline": "SNCF TER",
+    "type": "departure"
+  },
+  {
+    "location": "Aix-en-Provence",
+    "coordinates": [5.4474, 43.5297],
+    "date": "Jun 24, 2026",
+    "airline": "SNCF TER",
+    "mode": "train",
+    "type": "arrival"
+  },
+  {
+    "location": "Aix-en-Provence",
+    "coordinates": [5.4474, 43.5297],
+    "date": "Jun 26, 2026",
+    "airline": "SNCF TER",
+    "type": "departure"
+  },
+  {
+    "location": "Avignon",
+    "coordinates": [4.8055, 43.9493],
+    "date": "Jun 26, 2026",
+    "airline": "SNCF TER",
+    "mode": "train",
+    "type": "arrival"
+  },
+  {
+    "location": "Avignon",
+    "coordinates": [4.8055, 43.9493],
+    "date": "Jun 28, 2026",
+    "airline": "SNCF TGV",
+    "type": "departure"
+  },
+  {
+    "location": "Paris",
+    "coordinates": [2.3522, 48.8566],
+    "date": "Jun 28, 2026",
+    "airline": "SNCF TGV",
+    "mode": "train",
+    "type": "arrival"
+  },
+  {
+    "location": "Paris",
+    "coordinates": [2.3522, 48.8566],
+    "date": "Jul 11, 2026",
+    "airline": "Transavia",
+    "type": "departure"
+  },
+  {
+    "location": "Lisbon",
+    "coordinates": [-9.1393, 38.7223],
+    "date": "Jul 11, 2026",
+    "airline": "Transavia",
+    "mode": "flight",
+    "type": "arrival"
   }
 ]

@@ -51,7 +51,7 @@ hide:
       </div>
     </div>
     <div class="stats-group">
-      <div class="stats-label">FLIGHTS</div>
+      <div class="stats-label">TRIPS</div>
       <div id="flight-count" class="stats-value">00</div>
     </div>
   </div>

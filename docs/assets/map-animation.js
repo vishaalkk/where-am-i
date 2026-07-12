@@ -115,20 +115,57 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         });
 
-        // Route Line Layer (NYAN TRAIL)
+        // Route Line Layers (NYAN TRAIL) — styled per-leg by the leg's `mode`
+        // property. Mapbox `line-dasharray` is a global paint property (it can't
+        // vary per feature), so each look gets its own layer over one source:
+        //   route          - solid colored base for every leg (thicker for ground)
+        //   route-ties      - dark cross-ties over TRAIN legs -> rail-track look
+        //   route-bus-line  - dashed centerline over BUS legs  -> road look
+
+        // Base line: all legs.
         map.addLayer({
             'id': 'route',
             'type': 'line',
             'source': 'route',
             'layout': {
                 'line-join': 'round',
-                'line-cap': 'round' 
+                'line-cap': 'round'
             },
             'paint': {
-                'line-color': ['get', 'color'], 
-                'line-width': 3, 
-                'line-dasharray': [1, 0], 
+                'line-color': ['get', 'color'],
+                // Ground routes ride a bit thicker so the overlays read.
+                'line-width': ['match', ['get', 'mode'], 'train', 5, 'bus', 5, 3],
                 'line-opacity': 0.8
+            }
+        });
+
+        // Train cross-ties: tight dark dashes over train legs only.
+        map.addLayer({
+            'id': 'route-ties',
+            'type': 'line',
+            'source': 'route',
+            'filter': ['==', ['get', 'mode'], 'train'],
+            'layout': { 'line-join': 'round', 'line-cap': 'butt' },
+            'paint': {
+                'line-color': '#111111',
+                'line-width': 5,
+                'line-dasharray': [0.4, 0.6],
+                'line-opacity': 0.9
+            }
+        });
+
+        // Bus road centerline: thin dashed line down the middle of bus legs.
+        map.addLayer({
+            'id': 'route-bus-line',
+            'type': 'line',
+            'source': 'route',
+            'filter': ['==', ['get', 'mode'], 'bus'],
+            'layout': { 'line-join': 'round', 'line-cap': 'round' },
+            'paint': {
+                'line-color': '#0a0a0a',
+                'line-width': 1.5,
+                'line-dasharray': [2, 3],
+                'line-opacity': 0.9
             }
         });
 
@@ -169,6 +206,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             'properties': {
                 'title': trip.location,
                 'description': trip.date,
+                'mode': trip.mode || '',
+                'via': trip.airline || '',
                 'type': trip.location.includes("Home") ? 'home' : 'trip'
             }
         }));
@@ -209,14 +248,21 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
 
         // Add Popup on Click (Interactive Layer)
+        const modeLabels = { flight: '✈️ Flight', train: '🚆 Train', bus: '🚌 Bus' };
         map.on('click', 'cities-layer', (e) => {
             const coordinates = e.features[0].geometry.coordinates.slice();
-            const description = e.features[0].properties.description;
-            const title = e.features[0].properties.title;
+            const p = e.features[0].properties;
+
+            let html = `<strong>${p.title}</strong><br>${p.description}`;
+            // `mode` is set on arrival stops only, so this reads as "how I got here".
+            if (p.mode && modeLabels[p.mode]) {
+                html += `<br><span style="opacity:0.85">Arrived by ${modeLabels[p.mode]}</span>`;
+                if (p.via) html += `<br><span style="opacity:0.6; font-size:0.85em">${p.via}</span>`;
+            }
 
             new mapboxgl.Popup({ className: 'dark-popup' })
                 .setLngLat(coordinates)
-                .setHTML(`<strong>${title}</strong><br>${description}`)
+                .setHTML(html)
                 .addTo(map);
         });
 
@@ -233,14 +279,20 @@ document.addEventListener('DOMContentLoaded', async function () {
             map.moveLayer('plane'); 
         }
 
+        // Precompute the real trips (skip zero-length "stay" legs).
+        realLegs = [];
+        for (let i = 0; i < travels.length - 1; i++) {
+            if (!isStay(i)) realLegs.push(i);
+        }
+
         // Initial Position: JUMP TO CURRENT LOCATION (Last Entry)
         if(travels.length > 0) {
             const currentLoc = travels[travels.length - 1];
-            
+
             // Stats Update
             locationStat.innerText = currentLoc.location.split(',')[0].toUpperCase();
             dateStat.innerText = "PRESENT";
-            flightCountStat.innerText = travels.length.toString().padStart(2, '0');
+            flightCountStat.innerText = realLegs.length.toString().padStart(2, '0');
             
             // Map Jump
             map.jumpTo({ center: currentLoc.coordinates, zoom: 4 });
@@ -272,6 +324,109 @@ document.addEventListener('DOMContentLoaded', async function () {
     let flightHistory = {};
     let currentPilot = "cat";
     let lightSpeed = false; // WARP: blast through the whole history in <10s
+    let realLegs = []; // segment indices that are real trips (populated on load)
+
+    // A "stay" is a zero-length leg: an arrival followed by a later departure
+    // from the same city. These aren't trips, so we never animate them.
+    const isStay = (i) => {
+        const a = travels[i].coordinates, b = travels[i + 1].coordinates;
+        return a[0] === b[0] && a[1] === b[1];
+    };
+    // Next/previous real (non-stay) segment at or beyond the given index.
+    const nextRealSegment = (i) => {
+        let j = i;
+        while (j <= travels.length - 2 && isStay(j)) j++;
+        return j;
+    };
+    const prevRealSegment = (i) => {
+        let j = i;
+        while (j > 0 && isStay(j)) j--;
+        return Math.max(j, 0);
+    };
+
+    // Per-leg render data (arc + color + mode), computed once and reused so
+    // stepping back/forward is stable — no color reshuffle, no curve drift,
+    // and flightHistory isn't re-incremented on replay.
+    let legCache = {};
+    const featFromCache = (idx) => {
+        const c = legCache[idx];
+        return {
+            'type': 'Feature',
+            'geometry': { 'type': 'LineString', 'coordinates': c.arcCoords },
+            'properties': { 'color': c.color, 'mode': c.mode }
+        };
+    };
+    // Draw the whole path: every leg before the current one (from cache) plus
+    // `currentFeature` (the in-progress or just-finished leg). Rebuilt from
+    // scratch each call, so the trail can never accumulate duplicates.
+    const renderPath = (currentFeature) => {
+        const feats = [];
+        for (const idx of realLegs) {
+            if (idx < currentSegmentIndex && legCache[idx]) feats.push(featFromCache(idx));
+        }
+        if (currentFeature) feats.push(currentFeature);
+        map.getSource('route').setData({ 'type': 'FeatureCollection', 'features': feats });
+    };
+    const placePilot = (coords, bearing = 0) => {
+        map.getSource('plane').setData({
+            'type': 'FeatureCollection',
+            'features': [{
+                'type': 'Feature',
+                'geometry': { 'type': 'Point', 'coordinates': coords },
+                'properties': { 'bearing': bearing }
+            }]
+        });
+    };
+
+    // Compute a leg's arc, colour and mode. Colour comes from the active
+    // pilot's palette; the line STYLE (tracks/road) comes from the leg's mode.
+    const buildLeg = (start, end) => {
+        const mode = end.mode || 'flight';
+
+        let color;
+        if (currentPilot === 'cat') {
+            const catNeon = ['#ff00ff', '#ff00aa', '#ff99cc', '#ad00ff', '#ffaa00', '#ff0055', '#cc00ff'];
+            color = catNeon[Math.floor(Math.random() * catNeon.length)];
+        } else if (currentPilot === 'plane') {
+            const planeColors = ['#ffffff', '#00ffff', '#aaffff', '#cccccc', '#00ccff', '#88ffff', '#e0f7fa'];
+            color = planeColors[Math.floor(Math.random() * planeColors.length)];
+        } else {
+            const ufoColors = ['#00ff00', '#ccff00', '#ffff00', '#55ff55', '#33ff33', '#99ff00', '#eeff41'];
+            color = ufoColors[Math.floor(Math.random() * ufoColors.length)];
+        }
+
+        const startLng = start.coordinates[0], startLat = start.coordinates[1];
+        const endLng = end.coordinates[0], endLat = end.coordinates[1];
+
+        const routeKey = [startLng, startLat, endLng, endLat].sort().join('|');
+        const flightCount = flightHistory[routeKey] || 0;
+        flightHistory[routeKey] = flightCount + 1;
+
+        // Repeat routes fan out, alternating sides; capped at ±8° so heavily
+        // repeated hops don't bow off the map. Cat only.
+        const MAX_CURVE = 8.0;
+        let curveMagnitude = 0;
+        if (currentPilot === 'cat' && flightCount > 0) {
+            const dir = (flightCount % 2 === 0) ? -1 : 1;
+            curveMagnitude = dir * Math.min(Math.ceil(flightCount / 2) * 5.0, MAX_CURVE);
+        }
+
+        const arcCoords = [];
+        const steps = 200;
+        for (let i = 0; i <= steps; i++) {
+            const t = i / steps;
+            const lng = startLng + (endLng - startLng) * t;
+            let lat = startLat + (endLat - startLat) * t;
+            if (currentPilot === 'cat') {
+                lat += Math.sin(t * Math.PI) * curveMagnitude; // arc
+            } else if (currentPilot === 'ufo') {
+                lat += (Math.random() - 0.5) * 0.5; // shake
+            }
+            arcCoords.push([lng, lat]);
+        }
+
+        return { arcCoords, color, mode };
+    };
 
     // Pilot Switcher
     const switchPilot = (type) => {
@@ -324,17 +479,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         dateStat.innerText = "----";
 
         // Reset Cat/Pilot
-        map.getSource('plane').setData({
-            'type': 'FeatureCollection',
-            'features': [{
-                'type': 'Feature',
-                'geometry': {
-                    'type': 'Point',
-                    'coordinates': startLoc.coordinates
-                },
-                'properties': { 'bearing': 90 }
-            }]
-        });
+        placePilot(startLoc.coordinates, 90);
 
         // Clear Route
         map.getSource('route').setData({
@@ -348,8 +493,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         autoPlay = true;
         isPaused = false;
         flightHistory = {};
-        window.historyFeatures = [];
-        currentSegmentIndex = 0;
+        legCache = {};
+        currentSegmentIndex = nextRealSegment(0);
         setTimeout(playNextSegment, fast ? 100 : 1000);
     }
 
@@ -376,22 +521,101 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (isPlaying) {
             skipCurrent = true;
         } else {
-            if (currentSegmentIndex < travels.length - 1) {
-                currentSegmentIndex++;
+            const nextIdx = nextRealSegment(currentSegmentIndex + 1);
+            if (nextIdx < travels.length - 1) {
+                currentSegmentIndex = nextIdx;
                 playNextSegment();
             }
         }
     });
 
     prevBtn.addEventListener('click', () => {
-        autoPlay = false; 
-        stopAnimation();
-        
-        if (currentSegmentIndex > 0) {
-            currentSegmentIndex--;
-            playNextSegment(); 
-        }
+        autoPlay = false;
+        if (currentSegmentIndex <= 0) return;
+        retractSegment();
     });
+
+    // Reverse-retrace the current leg: the cat flies backward to the previous
+    // stop and the line retracts behind it — the mirror image of Next.
+    function retractSegment() {
+        stopAnimation();
+
+        const L = currentSegmentIndex;
+        const cache = legCache[L];
+        const newIndex = prevRealSegment(L - 1);
+        const destStop = travels[newIndex + 1]; // where we end up (start of leg L)
+
+        const settle = () => {
+            isPlaying = false;
+            currentSegmentIndex = newIndex;
+            locationStat.innerText = destStop.location.split(',')[0].toUpperCase();
+            dateStat.innerText = destStop.date || 'ARRIVED';
+            const legNumber = realLegs.filter(idx => idx <= currentSegmentIndex).length;
+            flightCountStat.innerText = legNumber.toString().padStart(2, '0');
+            placePilot(destStop.coordinates);
+            renderPath(legCache[currentSegmentIndex] ? featFromCache(currentSegmentIndex) : null);
+        };
+
+        // No cached arc (shouldn't happen in normal play) — just settle.
+        if (!cache) { settle(); return; }
+
+        isPlaying = true;
+        isPaused = false;
+        if (pauseBtn) pauseBtn.innerText = "||";
+
+        const { arcCoords, color: segmentColor, mode: legMode } = cache;
+        locationStat.innerText = destStop.location.split(',')[0].toUpperCase();
+
+        map.easeTo({
+            center: destStop.coordinates,
+            zoom: 2,
+            duration: lightSpeed ? 600 : 2000,
+            easing: (t) => t * (2 - t),
+            essential: true
+        });
+        map.setLayoutProperty('plane', 'icon-image', currentPilot);
+
+        const speedSlider = document.getElementById('speed-slider');
+        let frameIndex = arcCoords.length - 1;
+
+        function frame() {
+            if (!isPlaying) return;
+            if (isPaused) { animationFrameId = requestAnimationFrame(frame); return; }
+
+            let speedFactor = parseInt(speedSlider.value);
+            if (lightSpeed) speedFactor = 100;
+
+            if (frameIndex > 0) {
+                const currentCoord = arcCoords[frameIndex];
+
+                // Face the way we're travelling: toward the LOWER index (home).
+                let catRotation;
+                if (currentPilot === 'ufo') {
+                    catRotation = frameIndex * 10;
+                } else {
+                    const aheadP = arcCoords[Math.max(frameIndex - 5, 0)];
+                    const bearing = turf.rhumbBearing(turf.point(currentCoord), turf.point(aheadP));
+                    const offset = (currentPilot === 'plane') ? -45 : -90;
+                    catRotation = bearing + offset;
+                }
+                placePilot(currentCoord, catRotation);
+
+                // Retract the trail: draw only up to the shrinking frameIndex.
+                renderPath({
+                    'type': 'Feature',
+                    'geometry': { 'type': 'LineString', 'coordinates': arcCoords.slice(0, frameIndex + 1) },
+                    'properties': { 'color': segmentColor, 'mode': legMode }
+                });
+
+                frameIndex -= speedFactor;
+                animationFrameId = requestAnimationFrame(frame);
+            } else {
+                settle();
+            }
+        }
+
+        animationFrameId = requestAnimationFrame(frame);
+    }
 
     let skipCurrent = false;
 
@@ -414,68 +638,20 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         const start = travels[currentSegmentIndex];
         const end = travels[currentSegmentIndex + 1];
-        
+
+        // Build this leg's render data once, then reuse it forever (stable
+        // colour/curve, no flightHistory drift when you step back and forth).
+        if (!legCache[currentSegmentIndex]) {
+            legCache[currentSegmentIndex] = buildLeg(start, end);
+        }
+        const { arcCoords, color: segmentColor, mode: legMode } = legCache[currentSegmentIndex];
+
         locationStat.innerText = end.location.split(',')[0].toUpperCase();
         dateStat.innerText = end.date ? end.date.split(' - ')[0] : '...';
-        flightCountStat.innerText = (currentSegmentIndex + 1).toString().padStart(2, '0');
+        // Count real trips completed, not raw point index (stays are skipped).
+        const legNumber = realLegs.filter(idx => idx <= currentSegmentIndex).length;
+        flightCountStat.innerText = legNumber.toString().padStart(2, '0');
 
-        // ----------------- PILOT CONFIG -----------------
-        let segmentColor;
-        
-        if (currentPilot === 'cat') {
-            const catNeon = ['#ff00ff', '#ff00aa', '#ff99cc', '#ad00ff', '#ffaa00', '#ff0055', '#cc00ff'];
-            segmentColor = catNeon[Math.floor(Math.random() * catNeon.length)];
-        } else if (currentPilot === 'plane') {
-            const planeColors = ['#ffffff', '#00ffff', '#aaffff', '#cccccc', '#00ccff', '#88ffff', '#e0f7fa'];
-            segmentColor = planeColors[Math.floor(Math.random() * planeColors.length)];
-        } else if (currentPilot === 'ufo') {
-            const ufoColors = ['#00ff00', '#ccff00', '#ffff00', '#55ff55', '#33ff33', '#99ff00', '#eeff41'];
-            segmentColor = ufoColors[Math.floor(Math.random() * ufoColors.length)];
-        }
-
-        // Toggle Layer Style Global
-        if (currentPilot === 'plane') {
-            map.setPaintProperty('route', 'line-dasharray', [2, 2]);
-        } else {
-            map.setPaintProperty('route', 'line-dasharray', [1, 0]);
-        }
-
-        // 1. Calculate Path
-        const startLng = start.coordinates[0];
-        const startLat = start.coordinates[1];
-        const endLng = end.coordinates[0];
-        const endLat = end.coordinates[1];
-        
-        const routeKey = [startLng, startLat, endLng, endLat].sort().join('|');
-        const flightCount = flightHistory[routeKey] || 0;
-        flightHistory[routeKey] = flightCount + 1;
-        
-        // Curve Logic (Only for Cat)
-        let curveMagnitude = 0;
-        if (currentPilot === 'cat') {
-            curveMagnitude = (flightCount === 0) ? 0 : (Math.ceil(flightCount / 2) * (flightCount % 2 === 0 ? -1 : 1)) * 5.0; 
-        }
-        
-        const arcCoords = [];
-        const steps = 200; 
-
-        for (let i = 0; i <= steps; i++) {
-            const t = i / steps;
-            const lng = startLng + (endLng - startLng) * t;
-            let lat = startLat + (endLat - startLat) * t;
-            
-            // Add Curve
-            if (currentPilot === 'cat') {
-                lat += Math.sin(t * Math.PI) * curveMagnitude;
-            } 
-            // Add Jitter (UFO)
-            else if (currentPilot === 'ufo') {
-                lat += (Math.random() - 0.5) * 0.5; // Random shake
-            }
-            
-            arcCoords.push([lng, lat]);
-        }
-        
         // Animate Camera
         map.easeTo({
             center: end.coordinates,
@@ -520,60 +696,30 @@ document.addEventListener('DOMContentLoaded', async function () {
                 }
 
                 // Update Plane
-                map.getSource('plane').setData({
-                    'type': 'FeatureCollection',
-                    'features': [{
-                        'type': 'Feature',
-                        'geometry': {
-                            'type': 'Point',
-                            'coordinates': currentCoord
-                        },
-                        'properties': { 'bearing': catRotation }
-                    }]
-                });
+                placePilot(currentCoord, catRotation);
 
-                // Update Route
-                const currentTrail = {
+                // Update Route: draw the completed path plus this leg so far.
+                renderPath({
                     'type': 'Feature',
                     'geometry': {
                         'type': 'LineString',
                         'coordinates': arcCoords.slice(0, frameIndex + 1)
                     },
-                    'properties': { 'color': segmentColor }
-                };
-                
-                const allFeatures = [...(window.historyFeatures || []), currentTrail];
-                
-                map.getSource('route').setData({
-                    'type': 'FeatureCollection',
-                    'features': allFeatures
+                    'properties': { 'color': segmentColor, 'mode': legMode }
                 });
 
-                frameIndex += speedFactor; 
+                frameIndex += speedFactor;
                 animationFrameId = requestAnimationFrame(frame);
             } else {
                 dateStat.innerText = end.date || 'ARRIVED';
-                isPlaying = false; 
-                
-                if (!window.historyFeatures) window.historyFeatures = [];
-                window.historyFeatures.push({
-                    'type': 'Feature',
-                    'geometry': {
-                        'type': 'LineString',
-                        'coordinates': arcCoords
-                    },
-                    'properties': { 'color': segmentColor }
-                });
+                isPlaying = false;
 
-                // Render the finished segment. Essential in WARP mode, where a
-                // segment can complete in a single frame and never draw otherwise.
-                map.getSource('route').setData({
-                    'type': 'FeatureCollection',
-                    'features': window.historyFeatures
-                });
+                // Render the finished leg from cache. Essential in WARP mode,
+                // where a segment can complete in one frame and never draw.
+                renderPath(featFromCache(currentSegmentIndex));
 
                 if (autoPlay) {
-                    currentSegmentIndex++;
+                    currentSegmentIndex = nextRealSegment(currentSegmentIndex + 1);
                     timeoutId = setTimeout(playNextSegment, lightSpeed ? 0 : 1000);
                 }
             }
