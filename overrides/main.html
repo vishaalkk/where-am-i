@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  <meta name="description" content="A cat tracking Vishal's travels.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ config.site_name }}">
+  <meta property="og:title" content="{{ config.site_name }}">
+  <meta property="og:description" content="A cat tracking Vishal's travels.">
+  <meta property="og:image" content="{{ config.site_url }}assets/images/og-image.png">
+  <meta property="og:url" content="{{ config.site_url }}">
+{% endblock %}

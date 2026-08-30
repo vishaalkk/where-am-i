@@ -3,6 +3,7 @@ site_url: https://whereisvishal.com/
 site_author: Vishal | وشال
 theme:
   name: material
+  custom_dir: overrides
   font:
     text: Space Mono
     code: Space Mono
