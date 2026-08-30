@@ -889,5 +889,50 @@
     "airline": "Transavia",
     "mode": "flight",
     "type": "arrival"
+  },
+  {
+    "location": "Lisbon",
+    "coordinates": [-9.1393, 38.7223],
+    "date": "Jul 26, 2026",
+    "airline": "British Airways",
+    "type": "departure"
+  },
+  {
+    "location": "London",
+    "coordinates": [-0.4543, 51.4700],
+    "date": "Jul 26, 2026",
+    "airline": "British Airways",
+    "mode": "flight",
+    "type": "arrival"
+  },
+  {
+    "location": "London",
+    "coordinates": [-0.4543, 51.4700],
+    "date": "Aug 7, 2026",
+    "airline": "JetBlue Airways",
+    "type": "departure"
+  },
+  {
+    "location": "New York",
+    "coordinates": [-73.7781, 40.6413],
+    "date": "Aug 7, 2026",
+    "airline": "JetBlue Airways",
+    "mode": "flight",
+    "type": "arrival"
+  },
+  {
+    "location": "New York",
+    "coordinates": [-73.7781, 40.6413],
+    "date": "Aug 15, 2026",
+    "airline": "American Airlines",
+    "type": "departure"
+  },
+  {
+    "location": "Calgary",
+    "coordinates": [-114.0203, 51.1225],
+    "date": "Aug 15, 2026",
+    "airline": "American Airlines",
+    "mode": "flight",
+    "type": "arrival"
   }
 ]
