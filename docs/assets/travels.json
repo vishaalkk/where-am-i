@@ -934,5 +934,20 @@
     "airline": "American Airlines",
     "mode": "flight",
     "type": "arrival"
+  },
+  {
+    "location": "Calgary",
+    "coordinates": [-114.0203, 51.1225],
+    "date": "Sep 8, 2026",
+    "airline": "Flair Airlines",
+    "type": "departure"
+  },
+  {
+    "location": "Vancouver",
+    "coordinates": [-123.1815, 49.1939],
+    "date": "Sep 8, 2026",
+    "airline": "Flair Airlines",
+    "mode": "flight",
+    "type": "arrival"
   }
 ]
