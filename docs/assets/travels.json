@@ -949,5 +949,20 @@
     "airline": "Flair Airlines",
     "mode": "flight",
     "type": "arrival"
+  },
+  {
+    "location": "Vancouver",
+    "coordinates": [-123.1815, 49.1939],
+    "date": "Sep 16, 2026",
+    "airline": "Flair Airlines",
+    "type": "departure"
+  },
+  {
+    "location": "San Francisco",
+    "coordinates": [-122.3790, 37.6213],
+    "date": "Sep 16, 2026",
+    "airline": "Flair Airlines",
+    "mode": "flight",
+    "type": "arrival"
   }
 ]
