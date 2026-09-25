@@ -964,5 +964,20 @@
     "airline": "Flair Airlines",
     "mode": "flight",
     "type": "arrival"
+  },
+  {
+    "location": "San Francisco",
+    "coordinates": [-122.3790, 37.6213],
+    "date": "Sep 24, 2026",
+    "airline": "Sun Country Airlines",
+    "type": "departure"
+  },
+  {
+    "location": "Minneapolis",
+    "coordinates": [-93.2218, 44.8848],
+    "date": "Sep 24, 2026",
+    "airline": "Sun Country Airlines",
+    "mode": "flight",
+    "type": "arrival"
   }
 ]
