@@ -979,5 +979,20 @@
     "airline": "Sun Country Airlines",
     "mode": "flight",
     "type": "arrival"
+  },
+  {
+    "location": "Minneapolis",
+    "coordinates": [-93.2218, 44.8848],
+    "date": "Sep 29, 2026",
+    "airline": "Amtrak",
+    "type": "departure"
+  },
+  {
+    "location": "Milwaukee",
+    "coordinates": [-87.8966, 42.9475],
+    "date": "Sep 29, 2026",
+    "airline": "Amtrak",
+    "mode": "train",
+    "type": "arrival"
   }
 ]
